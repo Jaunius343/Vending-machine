@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Drink extends Product {
     private float volume;
     private float fizziness;
+    private int ageRestriction = 0;
 
     public Drink(){
         this("Drink", 0, new Date(), 0, 0, 0);
@@ -33,7 +34,6 @@ public class Drink extends Product {
         return price / volume;
     }
 
-    private int ageRestriction;
     public boolean isLegal(int age){
         if (ageRestriction == 0 || age >= ageRestriction){
             return true;

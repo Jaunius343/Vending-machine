@@ -3,11 +3,12 @@ package myPackage.myClass;
 import java.util.Date;
 
 public abstract class Product
-    implements Healthy
+    implements sellableWithDiscount
 {
     protected String name = "name";
     protected float price;
     protected Date expiration;
+    protected int discount;
 
     public float getPrice() {return price;}
     public void setPrice(float x) {price = x;}
@@ -55,11 +56,11 @@ public abstract class Product
         return ("product name: " + name + "\n" + "product price: " + price + "€\n" + "expiration date: " + expiration);
     }
 
-//    public abstract float getSize();
-//    public abstract void setSize(float x);
+    public abstract float getSize();
+    public abstract void setSize(float x);
 
-//    private String type = "unknown";
-//    public String getType(){return type;}
+    private String type = "unknown";
+    public String getType(){return type;}
 
     public abstract float pricePerSize ();//{return 0;}
 
@@ -67,19 +68,43 @@ public abstract class Product
         return false;
     }
 
+    public float sell(float money) {
+        return money - price;
+    }
+
+    public void setDiscount(int discount){
+        this.discount = discount;
+    };
+    public float sellWithDiscount(float money) {
+        return money - price * discount / 100;
+    }
+
     public static void main(String[] args) {
         // write your code here
     }
 
 }
-interface iType
+
+interface sellable
 {
-    String getType();
-    float getSize();
-    void setSize(float x);
+    float sell(float x);
 }
 
-interface Healthy extends iType
+interface sellableWithDiscount extends sellable
 {
-    boolean isHealthy();
+    void setDiscount(int x);
+    float sellWithDiscount(float x);
 }
+
+//interface Type extends Healthy                      //example sellable
+//{                                                   //extended sells with discount
+//    String getType();                               //interface has to reflect an action
+//    float getSize();
+//    void setSize(float x);
+//    float convertRatio = 1.21F;
+//}
+
+//interface Healthy
+//{
+//    boolean isHealthy();
+//}

@@ -44,13 +44,21 @@ public class Main{
         System.out.println("\n" + p6);
         System.out.println(p6.pricePerSize());
 //        System.out.println(p6.totalCalWorth());
+
+        p6.setDiscount(50);
+        System.out.println(p6.sell(10));
+        System.out.println(p6.sellWithDiscount(10));
+
         p5 = p6;
         System.out.println(p5.pricePerSize());
         System.out.println(p6.isHealthy());
+        System.out.println(p5.isHealthy());
         p5.println();
 
         Drink p7 = new Drink();
         System.out.println(p7.isLegal(17));
+
+        System.out.println(p7.getNumber());
 
 //        ArrayList<Float> temp_array = Drink.availableSizes();
 //        System.out.println(temp_array);
