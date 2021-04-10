@@ -42,6 +42,14 @@ public class Drink extends Product {
         }
     }
 
+    public boolean isHealthy(){
+        if(fizziness < 50){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 //    public float howBig(){return 1 / volume;}       //neprasminga
 
 //    private static ArrayList<Float>sizes = new ArrayList<>();
@@ -57,11 +65,4 @@ public class Drink extends Product {
 //        return sizes;
 //    }
 
-    public boolean isHealthy(){
-        if(fizziness < 50){
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

@@ -59,14 +59,12 @@ public abstract class Product
     public abstract float getSize();
     public abstract void setSize(float x);
 
-    private String type = "unknown";
-    public String getType(){return type;}
+    // private String type = "unknown";
+    public abstract String getType();//{return type;}
 
     public abstract float pricePerSize ();//{return 0;}
 
-    public boolean isHealthy(){
-        return false;
-    }
+    public abstract boolean isHealthy();//{return false;}
 
     public float sell(float money) {
         return money - price;
