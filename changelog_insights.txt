@@ -4,4 +4,6 @@ which described characteristics can simply be done in a class.
 
 I changed my interface to represent an actual action
 
+added two exception classes
+
 
