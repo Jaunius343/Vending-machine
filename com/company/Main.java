@@ -2,6 +2,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Date;
 import myPackage.myClass.*;
+import myExceptions.*;
 import java.util.ArrayList;
 
 public class Main{
@@ -45,8 +46,21 @@ public class Main{
         System.out.println(p6.pricePerSize());
 //        System.out.println(p6.totalCalWorth());
 
-        p6.setDiscount(50);
-        System.out.println(p6.sell(10));
+        try {
+            System.out.println(p6.sell(5));
+        }
+        catch (sellException exOb){
+            exOb.printStackTrace();
+            //System.out.println(exOb.getMessage());
+
+        }
+
+        try {
+            p6.setDiscount(110);
+        }
+        catch(sellWithDiscountException exOb){
+            exOb.printStackTrace();
+        }
         System.out.println(p6.sellWithDiscount(10));
 
         p5 = p6;

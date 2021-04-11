@@ -1,6 +1,7 @@
 package myPackage.myClass;
 
 import java.util.Date;
+import myExceptions.*;
 
 public abstract class Product
     implements sellableWithDiscount
@@ -66,12 +67,22 @@ public abstract class Product
 
     public abstract boolean isHealthy();//{return false;}
 
-    public float sell(float money) {
-        return money - price;
+    public float sell(float money)
+            throws sellException {
+        if(money >= price) {
+            return money - price;
+        } else {
+            throw new sellException("Not enough money");
+            //return money - price;
+        }
     }
 
-    public void setDiscount(int discount){
-        this.discount = discount;
+    public void setDiscount(int discount) throws sellWithDiscountException{
+        if (discount <= sellWithDiscountException.maxDiscount){
+            this.discount = discount;
+        } else {
+            throw new sellWithDiscountException("Discount is too big");
+        }
     };
     public float sellWithDiscount(float money) {
         return money - price * discount / 100;
@@ -85,14 +96,17 @@ public abstract class Product
 
 interface sellable
 {
-    float sell(float x);
+    float sell(float x) throws sellException;
 }
 
 interface sellableWithDiscount extends sellable
 {
-    void setDiscount(int x);
+    void setDiscount(int x) throws sellWithDiscountException;
     float sellWithDiscount(float x);
 }
+
+//sell exception (not enough money)
+//sell with discount exception (discount is bigger than 100%)
 
 //interface Type extends Healthy                      //example sellable
 //{                                                   //extended sells with discount
