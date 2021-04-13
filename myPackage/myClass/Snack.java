@@ -1,5 +1,6 @@
 package myPackage.myClass;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Snack extends Product {
@@ -7,10 +8,10 @@ public class Snack extends Product {
     private int calories;     //for 100 grams
 
     public Snack(){
-        this("Snack", 0, new Date(), 0, 0);
+        this("Snack", new BigDecimal(0), new Date(), 0, 0);
     }
 
-    public Snack(String n, float p, Date d, float w, int cal){
+    public Snack(String n, BigDecimal p, Date d, float w, int cal){
         super(n, p, d);
         weight = w;
         calories = cal;
@@ -29,8 +30,9 @@ public class Snack extends Product {
         return (super.toString() + "\n" + "Product type: " + type + "\n" + "Calories per 100g: " + calories);
     }
 
-    public float pricePerSize (){
-        return price / weight;
+    public BigDecimal pricePerSize (){
+        return price.divide(new BigDecimal(weight));
+        //price / weight;
     }
 
     public float totalCalWorth(){

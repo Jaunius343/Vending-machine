@@ -1,4 +1,5 @@
 package com.company;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import myPackage.myClass.*;
@@ -41,38 +42,49 @@ public class Main{
 //
         Product p5;
 //        System.out.print("\n" + p5.pricePerSize() + "\n");
-        Snack p6 = new Snack("product6", 7.5F, new Date(120, 5, 10), 0.3F, 75);
+        Snack p6 = new Snack("product6", new BigDecimal(7.5), new Date(120, 5, 10), 0.3F, 75);
         System.out.println("\n" + p6);
-        System.out.println(p6.pricePerSize());
+//        System.out.println(p6.pricePerSize());
 //        System.out.println(p6.totalCalWorth());
 
         try {
-            System.out.println(p6.sell(5));
+            System.out.println(p6.sell(new BigDecimal(5)));
         }
-        catch (sellException exOb){
+        catch (SellException exOb){
             exOb.printStackTrace();
-            //System.out.println(exOb.getMessage());
-
+//            System.out.println(exOb.getMessage());
         }
 
         try {
             p6.setDiscount(110);
         }
-        catch(sellWithDiscountException exOb){
+        catch(SellWithDiscountException exOb){
             exOb.printStackTrace();
         }
-        System.out.println(p6.sellWithDiscount(10));
+
+        try {
+            System.out.println(p6.sellWithDiscount(new BigDecimal(5)));
+        }
+        catch(SellWithDiscountException exOb){
+            exOb.printStackTrace();
+        }
 
         p5 = p6;
-        System.out.println(p5.pricePerSize());
+//        System.out.println(p5.pricePerSize());
         System.out.println(p6.isHealthy());
         System.out.println(p5.isHealthy());
-        p5.println();
+//        p5.println();
 
         Drink p7 = new Drink();
         System.out.println(p7.isLegal(17));
 
         System.out.println(p7.getNumber());
+
+//        BigDecimal a = new BigDecimal(7);
+//        BigDecimal b = new BigDecimal(6);
+//        System.out.println(a.compareTo(b));
+//        BigDecimal money = new BigDecimal(1.33);
+//        System.out.println(money);
 
 //        ArrayList<Float> temp_array = Drink.availableSizes();
 //        System.out.println(temp_array);

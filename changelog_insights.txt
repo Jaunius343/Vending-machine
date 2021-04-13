@@ -6,4 +6,6 @@ I changed my interface to represent an actual action
 
 added two exception classes
 
-
+changed floats around money to BigDecimal for more accuracy
+	my teacher pointed out that float loses information during calculations 
+	and suggested using BigDecimal instead

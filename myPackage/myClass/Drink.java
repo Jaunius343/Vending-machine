@@ -1,5 +1,6 @@
 package myPackage.myClass;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -9,10 +10,10 @@ public class Drink extends Product {
     private int ageRestriction = 0;
 
     public Drink(){
-        this("Drink", 0, new Date(), 0, 0, 0);
+        this("Drink", new BigDecimal(0), new Date(), 0, 0, 0);
     }
 
-    public Drink(String n, float p, Date d, float v, int f, int age){
+    public Drink(String n, BigDecimal p, Date d, float v, int f, int age){
         super(n, p, d);
         volume = v;
         fizziness = f;
@@ -30,8 +31,9 @@ public class Drink extends Product {
         return (super.toString() + "\n" + "Product type: " + type + "\n" + "fizziness: " + fizziness + "%");
     }
 
-    public float pricePerSize (){
-        return price / volume;
+    public BigDecimal pricePerSize (){
+        return price.divide(new BigDecimal(volume));
+        // price / volume;
     }
 
     public boolean isLegal(int age){

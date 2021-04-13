@@ -6,4 +6,4 @@ Creating classes, preparing them for work (constructors), setting element status
 Understanding class hierarchy, class inheritance (Base and extended classes), method overriding
 Creating packets, hand compiling them.
 Creating interfaces and implementing them. Making abstract classes and realizing them.
-understanding exceptions: declaring, throwing and catching them.
+Understanding exceptions: declaring, throwing and catching them.

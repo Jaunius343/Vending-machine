@@ -1,18 +1,30 @@
 package myPackage.myClass;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import myExceptions.*;
+
+interface sellable
+{
+    BigDecimal sell(BigDecimal money) throws SellException;
+}
+
+interface sellableWithDiscount extends sellable
+{
+    void setDiscount(int discount) throws SellWithDiscountException;
+    BigDecimal sellWithDiscount(BigDecimal money) throws SellWithDiscountException;
+}
 
 public abstract class Product
     implements sellableWithDiscount
 {
     protected String name = "name";
-    protected float price;
+    protected BigDecimal price;
     protected Date expiration;
     protected int discount;
 
-    public float getPrice() {return price;}
-    public void setPrice(float x) {price = x;}
+    public BigDecimal getPrice() {return price;}
+    public void setPrice(BigDecimal x) {price = x;}
 
     public String getString() {return name;}
     public void setString(String temp) {name = temp;}
@@ -23,10 +35,10 @@ public abstract class Product
     public void println(){System.out.println(name + " " + price + "€ " + expiration);}
 
     public Product(){
-        this("product", 0, new Date());
+        this("product", new BigDecimal(0), new Date());
     }
 
-    public Product(String n, float p, Date d){
+    public Product(String n, BigDecimal p, Date d){
         name = n;
         price = p;
         expiration = d;
@@ -63,29 +75,36 @@ public abstract class Product
     // private String type = "unknown";
     public abstract String getType();//{return type;}
 
-    public abstract float pricePerSize ();//{return 0;}
+    public abstract BigDecimal pricePerSize ();//{return 0;}
 
     public abstract boolean isHealthy();//{return false;}
 
-    public float sell(float money)
-            throws sellException {
-        if(money >= price) {
-            return money - price;
+    public BigDecimal sell(BigDecimal money) throws SellException {
+        if(//money >= price
+        money.compareTo(price) >= 0) {
+            return money.subtract(price);
         } else {
-            throw new sellException("Not enough money");
-            //return money - price;
+            throw new SellException();
         }
     }
 
-    public void setDiscount(int discount) throws sellWithDiscountException{
-        if (discount <= sellWithDiscountException.maxDiscount){
+    public void setDiscount(int discount) throws SellWithDiscountException{
+        if (discount <= 100){
             this.discount = discount;
+            price = price.multiply(new BigDecimal(discount));
+            price = price.divide(new BigDecimal(100));
         } else {
-            throw new sellWithDiscountException("Discount is too big");
+            throw new SellWithDiscountException();
         }
-    };
-    public float sellWithDiscount(float money) {
-        return money - price * discount / 100;
+    }
+
+    public BigDecimal sellWithDiscount(BigDecimal money) throws SellWithDiscountException{
+        if (//money >= price
+        money.compareTo(price) >= 0) {
+            return money.subtract(price);
+        } else {
+            throw new SellWithDiscountException();
+        }
     }
 
     public static void main(String[] args) {
@@ -94,19 +113,8 @@ public abstract class Product
 
 }
 
-interface sellable
-{
-    float sell(float x) throws sellException;
-}
 
-interface sellableWithDiscount extends sellable
-{
-    void setDiscount(int x) throws sellWithDiscountException;
-    float sellWithDiscount(float x);
-}
 
-//sell exception (not enough money)
-//sell with discount exception (discount is bigger than 100%)
 
 //interface Type extends Healthy                      //example sellable
 //{                                                   //extended sells with discount
