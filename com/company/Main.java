@@ -60,12 +60,16 @@ public class Main{
         }
         catch(SellWithDiscountException exOb){
             exOb.printStackTrace();
+            System.out.print("Bad discount: " + exOb.getBadDiscount() + "\n");
         }
 
         try {
             System.out.println(p6.sellWithDiscount(new BigDecimal(5)));
         }
         catch(SellWithDiscountException exOb){
+            exOb.printStackTrace();
+        }
+        catch (SellException exOb){
             exOb.printStackTrace();
         }
 

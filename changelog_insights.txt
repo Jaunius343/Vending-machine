@@ -9,3 +9,8 @@ added two exception classes
 changed floats around money to BigDecimal for more accuracy
 	my teacher pointed out that float loses information during calculations 
 	and suggested using BigDecimal instead
+
+Added aditional variables in SellWithDiscountException class as suggested by lecturer,
+for the possibility for user to check which value threw the exception.
+Also minor changes to SellWithDiscount method, as there's no point o sell a product with discount
+if it has 0 discount (SellWithDiscount now throws SellWithDiscountException if discount is equal to 0)

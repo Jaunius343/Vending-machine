@@ -12,7 +12,7 @@ interface sellable
 interface sellableWithDiscount extends sellable
 {
     void setDiscount(int discount) throws SellWithDiscountException;
-    BigDecimal sellWithDiscount(BigDecimal money) throws SellWithDiscountException;
+    BigDecimal sellWithDiscount(BigDecimal money) throws SellWithDiscountException, SellException;
 }
 
 public abstract class Product
@@ -45,15 +45,8 @@ public abstract class Product
         this.number = nextNumber();
     }
 
-    //su datos galiojimu. be argumentu - tikrina su dabar; jei duota data - su ta data;
-
     public final boolean isValidDate(){return expiration.after(new Date());}
     public final boolean isValidDate(Date date){return expiration.after(date);}
-
-//    int priceCheck (int a) {if(price == a) return 0;
-//                            else return 1;}
-//    int priceCheck (float b) {return 1;}
-
 
     private static int lastNumber = 0;
     public static int getLastNumber() {return lastNumber;}
@@ -91,19 +84,27 @@ public abstract class Product
     public void setDiscount(int discount) throws SellWithDiscountException{
         if (discount <= 100){
             this.discount = discount;
-            price = price.multiply(new BigDecimal(discount));
-            price = price.divide(new BigDecimal(100));
         } else {
-            throw new SellWithDiscountException();
+            throw new SellWithDiscountException(discount);
         }
     }
 
-    public BigDecimal sellWithDiscount(BigDecimal money) throws SellWithDiscountException{
+    public BigDecimal sellWithDiscount(BigDecimal money)
+            throws SellWithDiscountException, SellException{
+
+        if(discount == 0){
+            throw new SellWithDiscountException(discount);
+        }
+
+        BigDecimal priceWithDiscount;
+        priceWithDiscount = price.multiply(new BigDecimal(discount));
+        priceWithDiscount = priceWithDiscount.divide(new BigDecimal(100));
+
         if (//money >= price
-        money.compareTo(price) >= 0) {
+                money.compareTo(priceWithDiscount) >= 0) {
             return money.subtract(price);
         } else {
-            throw new SellWithDiscountException();
+            throw new SellException();
         }
     }
 
