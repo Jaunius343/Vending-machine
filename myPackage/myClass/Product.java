@@ -102,7 +102,7 @@ public abstract class Product
 
         if (//money >= price
                 money.compareTo(priceWithDiscount) >= 0) {
-            return money.subtract(price);
+            return money.subtract(priceWithDiscount);
         } else {
             throw new SellException();
         }

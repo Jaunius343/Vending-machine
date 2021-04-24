@@ -14,3 +14,8 @@ Added aditional variables in SellWithDiscountException class as suggested by lec
 for the possibility for user to check which value threw the exception.
 Also minor changes to SellWithDiscount method, as there's no point o sell a product with discount
 if it has 0 discount (SellWithDiscount now throws SellWithDiscountException if discount is equal to 0)
+
+Added clone method in my subclasses
+Created a new class ProductFactory for object creation.
+I found that Factory method works best for my type of project, compared to abstract factory, object pool
+or prototype pattern

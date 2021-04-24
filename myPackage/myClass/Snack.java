@@ -3,7 +3,8 @@ package myPackage.myClass;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Snack extends Product {
+public class Snack extends Product
+implements  Cloneable {
     private float weight;     //in kilos
     private int calories;     //for 100 grams
 
@@ -45,6 +46,10 @@ public class Snack extends Product {
         } else {
             return true;
         }
+    }
+
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 }
 

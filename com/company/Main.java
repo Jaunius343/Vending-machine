@@ -7,7 +7,7 @@ import myExceptions.*;
 import java.util.ArrayList;
 
 public class Main{
-    public static void main(String[] args){
+    public static void main(String[] args) throws CloneNotSupportedException{
         //(new Product()).println();
 //        Product p1 = new Product();
 ////        p1.getLastNumber();
@@ -48,7 +48,7 @@ public class Main{
 //        System.out.println(p6.totalCalWorth());
 
         try {
-            System.out.println(p6.sell(new BigDecimal(5)));
+            System.out.println(p6.sell(new BigDecimal(10)));
         }
         catch (SellException exOb){
             exOb.printStackTrace();
@@ -56,7 +56,7 @@ public class Main{
         }
 
         try {
-            p6.setDiscount(110);
+            p6.setDiscount(50);
         }
         catch(SellWithDiscountException exOb){
             exOb.printStackTrace();
@@ -73,16 +73,33 @@ public class Main{
             exOb.printStackTrace();
         }
 
-        p5 = p6;
+        try {
+            p5 = (Snack) p6.clone();
+            p5.setString("this is a test");
+            System.out.println(p6);
+            System.out.println("\n" + p5);
+        }
+        catch (CloneNotSupportedException exc)
+        {
+            System.out.println("Cloning exception:" + exc);
+        }
+
 //        System.out.println(p5.pricePerSize());
-        System.out.println(p6.isHealthy());
-        System.out.println(p5.isHealthy());
+//        System.out.println(p6.isHealthy());
+//        System.out.println(p5.isHealthy());
 //        p5.println();
 
         Drink p7 = new Drink();
         System.out.println(p7.isLegal(17));
 
         System.out.println(p7.getNumber());
+
+        ProductFactory productFactory = new ProductFactory();
+        Product p8 = productFactory.createProduct("SNACK");
+        System.out.println(p8);
+
+        Product p9 = productFactory.createProduct("DRINK");
+        System.out.println(p9);
 
 //        BigDecimal a = new BigDecimal(7);
 //        BigDecimal b = new BigDecimal(6);

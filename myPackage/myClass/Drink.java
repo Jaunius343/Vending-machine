@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayList;
 
-public class Drink extends Product {
+public class Drink extends Product
+implements Cloneable{
     private float volume;
     private float fizziness;
     private int ageRestriction = 0;
@@ -50,6 +51,10 @@ public class Drink extends Product {
         } else {
             return false;
         }
+    }
+
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 
 //    public float howBig(){return 1 / volume;}       //neprasminga
