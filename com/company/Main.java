@@ -43,8 +43,11 @@ public class Main{
         Product p5;
 //        System.out.print("\n" + p5.pricePerSize() + "\n");
         Snack p6 = new Snack("product6", new BigDecimal(7.5), new Date(120, 5, 10), 0.3F, 75);
+        p5 = p6;
+//        System.out.println(p6.isHealthy());
+//        System.out.println(p5.isHealthy());
         System.out.println("\n" + p6);
-//        System.out.println(p6.pricePerSize());
+        System.out.println(p6.pricePerSize());
 //        System.out.println(p6.totalCalWorth());
 
         try {
@@ -84,7 +87,7 @@ public class Main{
             System.out.println("Cloning exception:" + exc);
         }
 
-//        System.out.println(p5.pricePerSize());
+        System.out.println(p5.pricePerSize());
 //        System.out.println(p6.isHealthy());
 //        System.out.println(p5.isHealthy());
 //        p5.println();
@@ -100,6 +103,11 @@ public class Main{
 
         Product p9 = productFactory.createProduct("DRINK");
         System.out.println(p9);
+        System.out.println("size: " + p9.getSize());
+
+        Product p10 = productFactory.createProduct("SNACK", "product10", new BigDecimal(7.5), new Date(120, 5, 10), 0.3F, 75);
+        System.out.println("\n" + p10);
+//        System.out.println(p10.isHealthy());
 
 //        BigDecimal a = new BigDecimal(7);
 //        BigDecimal b = new BigDecimal(6);
@@ -110,5 +118,6 @@ public class Main{
 //        ArrayList<Float> temp_array = Drink.availableSizes();
 //        System.out.println(temp_array);
 //        System.out.println(Drink.getSizeCount());
+
     }
 }

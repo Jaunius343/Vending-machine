@@ -19,3 +19,6 @@ Added clone method in my subclasses
 Created a new class ProductFactory for object creation.
 I found that Factory method works best for my type of project, compared to abstract factory, object pool
 or prototype pattern
+
+Added an overloading method in ProductFactory to create not only empty (with default values) objects, but 
+with values as well.

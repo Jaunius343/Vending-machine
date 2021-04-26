@@ -1,6 +1,7 @@
 package myPackage.myClass;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 public class Snack extends Product
@@ -32,7 +33,7 @@ implements  Cloneable {
     }
 
     public BigDecimal pricePerSize (){
-        return price.divide(new BigDecimal(weight));
+        return price.divide(new BigDecimal(weight), 2, RoundingMode.HALF_UP);
         //price / weight;
     }
 

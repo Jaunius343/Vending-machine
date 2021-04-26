@@ -1,6 +1,7 @@
 package myPackage.myClass;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -11,16 +12,18 @@ implements Cloneable{
     private int ageRestriction = 0;
 
     public Drink(){
-        this("Drink", new BigDecimal(0), new Date(), 0, 0, 0);
+        this("Drink", new BigDecimal(0), new Date(), 0, 0);
     }
 
-    public Drink(String n, BigDecimal p, Date d, float v, int f, int age){
+    public Drink(String n, BigDecimal p, Date d, float v, int f){
         super(n, p, d);
         volume = v;
         fizziness = f;
-        ageRestriction = age;
 //        addSizes(v);
     }
+
+    public int getAgeRestriction(){return ageRestriction;}
+    public void setAgeRestriction(int age){ageRestriction = age;}
 
     public float getSize(){return volume;}
     public void setSize(float x) {volume = x;}
@@ -33,7 +36,7 @@ implements Cloneable{
     }
 
     public BigDecimal pricePerSize (){
-        return price.divide(new BigDecimal(volume));
+        return price.divide(new BigDecimal(volume), 2, RoundingMode.HALF_UP);
         // price / volume;
     }
 
