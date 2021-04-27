@@ -49,8 +49,17 @@ implements  Cloneable {
         }
     }
 
+    public color testObject = new color();
+
     public Object clone() throws CloneNotSupportedException{
-        return super.clone();
+        Snack temp = (Snack)super.clone();
+
+        temp.testObject = new color();
+        temp.testObject.R = testObject.R;
+        temp.testObject.G = testObject.G;
+        temp.testObject.B = testObject.B;
+
+        return temp;
     }
 }
 

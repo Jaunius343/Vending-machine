@@ -19,8 +19,8 @@ public abstract class Product
     implements sellableWithDiscount
 {
     protected String name = "name";
-    protected BigDecimal price;
-    protected Date expiration;
+    protected BigDecimal price;                         //patikrinti
+    protected Date expiration;                          //patikrinti
     protected int discount;
 
     public BigDecimal getPrice() {return price;}

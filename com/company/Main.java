@@ -40,7 +40,7 @@ public class Main{
         System.out.println(p4);
 //        p4.println();
 //
-        Product p5;
+        Snack p5;
 //        System.out.print("\n" + p5.pricePerSize() + "\n");
         Snack p6 = new Snack("product6", new BigDecimal(7.5), new Date(120, 5, 10), 0.3F, 75);
         p5 = p6;
@@ -77,8 +77,31 @@ public class Main{
         }
 
         try {
+
+            p6.testObject.R = 1;
+            p6.testObject.G = 2;
+            p6.testObject.B = 3;
+
             p5 = (Snack) p6.clone();
+            ((Snack)p5).setCal(50);
             p5.setString("this is a test");
+            p5.setPrice(new BigDecimal(20));
+            p5.setDate(new Date(140, 7, 15));
+
+            System.out.println("\n" + "deep clone test" + "\n");
+
+            p5.testObject.R = 10;
+            p5.testObject.G = 20;
+            p5.testObject.B = 30;
+
+            System.out.println(p6.testObject.R);
+            System.out.println(p6.testObject.G);
+            System.out.println(p6.testObject.B);
+
+            System.out.println(p5.testObject.R);
+            System.out.println(p5.testObject.G);
+            System.out.println(p5.testObject.B);
+
             System.out.println(p6);
             System.out.println("\n" + p5);
         }
@@ -107,7 +130,7 @@ public class Main{
 
         Product p10 = productFactory.createProduct("SNACK", "product10", new BigDecimal(7.5), new Date(120, 5, 10), 0.3F, 75);
         System.out.println("\n" + p10);
-//        System.out.println(p10.isHealthy());
+//        System.out.println( ((Snack) p10).isHealthy());
 
 //        BigDecimal a = new BigDecimal(7);
 //        BigDecimal b = new BigDecimal(6);

@@ -7,8 +7,8 @@ I changed my interface to represent an actual action
 added two exception classes
 
 changed floats around money to BigDecimal for more accuracy
-	my teacher pointed out that float loses information during calculations 
-	and suggested using BigDecimal instead
+my teacher pointed out that float loses information during calculations 
+and suggested using BigDecimal instead
 
 Added aditional variables in SellWithDiscountException class as suggested by lecturer,
 for the possibility for user to check which value threw the exception.
@@ -22,3 +22,7 @@ or prototype pattern
 
 Added an overloading method in ProductFactory to create not only empty (with default values) objects, but 
 with values as well.
+
+Teacher asked to showcase deep cloning, therefore additional Color class was added and its object was
+created in Snack class, which has clone method. Of course, the clone method was corrected to fulfil
+deep cloning.
