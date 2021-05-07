@@ -1,10 +1,12 @@
 package com.company;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import myPackage.myClass.*;
 import myExceptions.*;
-import java.util.ArrayList;
+import myUserInterface.*;
+import javax.swing.*;
 
 public class Main{
     public static void main(String[] args) throws CloneNotSupportedException{
@@ -131,6 +133,76 @@ public class Main{
         Product p10 = productFactory.createProduct("SNACK", "product10", new BigDecimal(7.5), new Date(120, 5, 10), 0.3F, 75);
         System.out.println("\n" + p10);
 //        System.out.println( ((Snack) p10).isHealthy());
+
+//        System.out.println(p6.getPrice().toString());
+
+//        ObjectOutputStream outputFile = null;
+//
+//        try{
+//            outputFile = new ObjectOutputStream(new FileOutputStream("file.txt"));
+//            outputFile.writeObject(p6.getPrice());
+//            outputFile.writeObject(p6.getExpiration());
+//            outputFile.writeObject(p6.getString());
+//            outputFile.writeObject(p6.getDiscount());
+//            outputFile.writeObject(p6.getSize());
+//        }
+//        catch (FileNotFoundException ex){
+//            ex.printStackTrace();
+//        }
+//        catch (IOException ex){
+//            ex.printStackTrace();
+//        }
+//        finally {
+//            try {
+//                outputFile.close();
+//            }
+//            catch(IOException ex){
+//                ex.printStackTrace();
+//            }
+//        }
+
+//        Snack test = new Snack();
+//
+//        System.out.println("\n" + "Before file read:");
+//        System.out.println(test);
+//
+//        ObjectInputStream inputFile = null;
+//        try{
+//            inputFile = new ObjectInputStream(new FileInputStream("file.txt"));
+//            test.setPrice((BigDecimal) inputFile.readObject());
+//            test.setDate((Date) inputFile.readObject());
+//            test.setString((String) inputFile.readObject());
+//            test.setDiscount((int) inputFile.readObject());
+//            test.setSize((float) inputFile.readObject());
+//
+//
+//            System.out.println("\n" + "test object values:");
+//            System.out.println(test);
+//        }
+//        catch (FileNotFoundException ex){
+//            ex.printStackTrace();
+//        }
+//        catch(SellWithDiscountException ex) {
+//            ex.printStackTrace();
+//        }
+//        catch(ClassNotFoundException ex){
+//            ex.printStackTrace();
+//        }
+//        catch (IOException ex){
+//            ex.printStackTrace();
+//        }
+//        finally {
+//            try {
+//                inputFile.close();
+//            }
+//            catch(IOException ex){
+//                ex.printStackTrace();
+//            }
+//        }
+
+        JFrame frame = new CustomGUI();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.show();
 
 //        BigDecimal a = new BigDecimal(7);
 //        BigDecimal b = new BigDecimal(6);

@@ -26,3 +26,7 @@ with values as well.
 Teacher asked to showcase deep cloning, therefore additional Color class was added and its object was
 created in Snack class, which has clone method. Of course, the clone method was corrected to fulfil
 deep cloning.
+
+Created CustomGUI class for simple user interface, currently has three buttons for reading from file,
+writing to file and closing. As the buttons initiate their own threads, close button can be used
+allowing user to stop writing / reading from the file while the action hasn't finished

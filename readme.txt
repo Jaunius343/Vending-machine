@@ -14,3 +14,5 @@ Creating interfaces and implementing them. Making abstract classes and realizing
 Understanding exceptions: declaring, throwing and catching them.
 
 Preparing objects for cloning(shallow & deep), understanding object creation patterns (used factory design pattern)
+
+Understanding, creating and using threads

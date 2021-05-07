@@ -1,5 +1,6 @@
 package myPackage.myClass;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import myExceptions.*;
@@ -16,11 +17,11 @@ interface sellableWithDiscount extends sellable
 }
 
 public abstract class Product
-    implements sellableWithDiscount
+    implements sellableWithDiscount, Serializable
 {
     protected String name = "name";
-    protected BigDecimal price;                         //patikrinti
-    protected Date expiration;                          //patikrinti
+    protected BigDecimal price;
+    protected Date expiration;
     protected int discount;
 
     public BigDecimal getPrice() {return price;}
@@ -31,6 +32,8 @@ public abstract class Product
 
     public Date getExpiration() {return expiration;}
     public void setDate(Date date) {expiration = date;}
+
+    public int getDiscount(){return discount;}
 
     public void println(){System.out.println(name + " " + price + "€ " + expiration);}
 
