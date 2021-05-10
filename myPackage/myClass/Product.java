@@ -68,6 +68,9 @@ public abstract class Product
     public abstract float getSize();
     public abstract void setSize(float x);
 
+    public abstract int getCal();
+    public abstract void setCal(int x);
+
     // private String type = "unknown";
     public abstract String getType();//{return type;}
 

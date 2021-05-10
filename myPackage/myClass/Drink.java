@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Drink extends Product
 implements Cloneable{
     private float volume;
-    private float fizziness;
+    private int fizziness;
     private int ageRestriction = 0;
 
     public Drink(){
@@ -27,6 +27,9 @@ implements Cloneable{
 
     public float getSize(){return volume;}
     public void setSize(float x) {volume = x;}
+
+    public int getCal(){return fizziness;}
+    public void setCal(int x) {fizziness = x;}
 
     private String type = "Drink";
     public String getType(){return type;}

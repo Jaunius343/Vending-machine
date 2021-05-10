@@ -1,7 +1,8 @@
 package myUserInterface;
 
 import myExceptions.SellWithDiscountException;
-import myPackage.myClass.Snack;
+import myPackage.myClass.*;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +13,8 @@ import java.util.*;
 import javax.swing.*;
 
 public class CustomGUI extends JFrame {
-    public CustomGUI(){
+    public Product product2;
+    public CustomGUI(Product obj){
         setSize(WIDTH, HEIGHT);
         setTitle("input / output");
 
@@ -23,7 +25,7 @@ public class CustomGUI extends JFrame {
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent evt){
-                        InputThread thread = new InputThread(new Snack("product6", new BigDecimal(7.5), new Date(120, 5, 10), 0.3F, 75));
+                        InputThread thread = new InputThread(obj);
                         thread.start();
                     }
                 });
@@ -70,8 +72,9 @@ public class CustomGUI extends JFrame {
 
 class InputThread extends Thread
 {
-    Snack snack;
-    public InputThread(Snack obj){snack = obj;}
+    Product product;
+    public InputThread(Product obj){product = obj;}
+
     public void run()
     {
         try{
@@ -79,15 +82,17 @@ class InputThread extends Thread
 
             try{
                 outputFile = new ObjectOutputStream(new FileOutputStream("file.txt"));
-                outputFile.writeObject(snack.getPrice());
+                outputFile.writeObject(product.getType());
+                outputFile.writeObject(product.getPrice());
 //                sleep(1000);
-                outputFile.writeObject(snack.getExpiration());
+                outputFile.writeObject(product.getExpiration());
 //                sleep(1000);
-                outputFile.writeObject(snack.getString());
+                outputFile.writeObject(product.getString());
 //                sleep(1000);
-                outputFile.writeObject(snack.getDiscount());
+                outputFile.writeObject(product.getDiscount());
 //                sleep(1000);
-                outputFile.writeObject(snack.getSize());
+                outputFile.writeObject(product.getSize());
+                outputFile.writeObject(product.getCal());
                 sleep(10);
             }
             catch (FileNotFoundException ex){
@@ -113,25 +118,33 @@ class InputThread extends Thread
 
 class OutputThread extends Thread
 {
-    Snack snack = new Snack();
+    Product product;
 
     public void run(){
         try{
-            System.out.println("\n" + "Before file read:");
-            System.out.println(snack);
 
             ObjectInputStream inputFile = null;
             try{
+                String temp;
                 inputFile = new ObjectInputStream(new FileInputStream("file.txt"));
-                snack.setPrice((BigDecimal) inputFile.readObject());
-                snack.setDate((Date) inputFile.readObject());
-                snack.setString((String) inputFile.readObject());
-                snack.setDiscount((int) inputFile.readObject());
-                snack.setSize((float) inputFile.readObject());
+                temp = (String) inputFile.readObject();
+//                System.out.println("this is a test: " + temp);
 
+                ProductFactory productFactory = new ProductFactory();
+                product = productFactory.createProduct(temp);
+
+                System.out.println("\n" + "Before file read:");
+                System.out.println(product);
+
+                product.setPrice((BigDecimal) inputFile.readObject());
+                product.setDate((Date) inputFile.readObject());
+                product.setString((String) inputFile.readObject());
+                product.setDiscount((int) inputFile.readObject());
+                product.setSize((float) inputFile.readObject());
+                product.setCal((int) inputFile.readObject());
 
                 System.out.println("\n" + "test object values:");
-                System.out.println(snack);
+                System.out.println(product);
             }
             catch (FileNotFoundException ex){
                 ex.printStackTrace();

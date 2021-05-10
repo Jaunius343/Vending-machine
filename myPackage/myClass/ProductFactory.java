@@ -8,10 +8,10 @@ public class ProductFactory {
         if (type == null || type.isEmpty()){
             return null;
         }
-        if ("SNACK".equals(type)){
+        if ("Snack".equals(type)){
             return new Snack();
         }
-        else if ("DRINK".equals(type)){
+        else if ("Drink".equals(type)){
             return new Drink();
         }
         return null;
@@ -21,10 +21,10 @@ public class ProductFactory {
         if (type == null || type.isEmpty()){
             return null;
         }
-        if ("SNACK".equals(type)){
+        if ("Snack".equals(type)){
             return new Snack(name, price, date, size, feature);
         }
-        else if ("DRINK".equals(type)){
+        else if ("Drink".equals(type)){
             return new Drink(name, price, date, size, feature);
         }
         return null;
