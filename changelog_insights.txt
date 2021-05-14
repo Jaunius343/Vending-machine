@@ -30,3 +30,10 @@ deep cloning.
 Created CustomGUI class for simple user interface, currently has three buttons for reading from file,
 writing to file and closing. As the buttons initiate their own threads, close button can be used
 allowing user to stop writing / reading from the file while the action hasn't finished
+
+I didn't understand completely how to use SwingUtilities.invokeLater and put button contstructors into invokeLater
+but in fact i needed to put button commands into invokeLater, fixed it right now. As invokeLater is used for updating
+GUI elements, I thought that creating them was the same. Actually, creating whole GUI class is in fact done in 
+SwingUtilities.invokeLater in main, but turns out you don't need to construct buttons the same way.
+
+Added status label and put to use SwingUtilities.invokeLater method to update the label

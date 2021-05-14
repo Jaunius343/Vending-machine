@@ -11,6 +11,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 
 public class CustomGUI extends JFrame {
     public Product product2;
@@ -21,31 +22,70 @@ public class CustomGUI extends JFrame {
         Container contentPane = getContentPane();
         JPanel buttonPanel = new JPanel();
 
+        JPanel statusPanel = new JPanel();
+        statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        contentPane.add(statusPanel, BorderLayout.SOUTH);
+        statusPanel.setPreferredSize(new Dimension(contentPane.getWidth(), 16));
+        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+        JLabel statusLabel = new JLabel("status");
+        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+
+
+        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+                new Runnable(){
+                    public void run(){
+                    }
+                });
+
         addButton(buttonPanel, "to file",
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent evt){
-                        InputThread thread = new InputThread(obj);
+                        OutputThread thread = new OutputThread(obj);
                         thread.start();
+//                        System.out.println(SwingUtilities.isEventDispatchThread());
+                        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+                                new Runnable(){
+                                    public void run(){
+                                        statusLabel.setText("copied to file");
+                                    }
+                                });
                     }
                 });
+
         addButton(buttonPanel, "from file",
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent evt){
-                        OutputThread thread = new OutputThread();
+                        InputThread thread = new InputThread();
                         thread.start();
+//                        System.out.println(SwingUtilities.isEventDispatchThread());
+                        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+                                new Runnable(){
+                                    public void run(){
+                                        statusLabel.setText("copied from file");
+                                    }
+                                });
                     }
                 });
+
         addButton(buttonPanel, "Close",
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent evt)
                     {
                         System.exit(0);
+                        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+                                new Runnable(){
+                                    public void run(){
+                                        statusLabel.setText("exiting");
+                                    }
+                                });
                     }
                 });
-        contentPane.add(buttonPanel, BorderLayout.SOUTH);
+
+        contentPane.add(buttonPanel, BorderLayout.CENTER);
+        statusPanel.add(statusLabel);
     }
 
     public void addButton (Container c, String title,
@@ -55,6 +95,8 @@ public class CustomGUI extends JFrame {
         c.add(button);
         button.addActionListener(listener);
     }
+
+
 
 
     public static final int WIDTH = 400;
@@ -70,10 +112,10 @@ public class CustomGUI extends JFrame {
 //    }
 //}
 
-class InputThread extends Thread
+class OutputThread extends Thread
 {
     Product product;
-    public InputThread(Product obj){product = obj;}
+    public  OutputThread(Product obj){product = obj;}
 
     public void run()
     {
@@ -116,7 +158,7 @@ class InputThread extends Thread
     }
 }
 
-class OutputThread extends Thread
+class InputThread extends Thread
 {
     Product product;
 
