@@ -13,8 +13,16 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
+/**
+ * user interface window for product's input / output to file
+ */
 public class CustomGUI extends JFrame {
     public Product product2;
+
+    /**
+     * creates a window
+     * @param obj product with which we're going to work
+     */
     public CustomGUI(Product obj){
         setSize(WIDTH, HEIGHT);
         setTitle("input / output");
@@ -31,7 +39,7 @@ public class CustomGUI extends JFrame {
         statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
 
-        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+        SwingUtilities.invokeLater(
                 new Runnable(){
                     public void run(){
                     }
@@ -44,7 +52,7 @@ public class CustomGUI extends JFrame {
                         OutputThread thread = new OutputThread(obj);
                         thread.start();
 //                        System.out.println(SwingUtilities.isEventDispatchThread());
-                        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+                        SwingUtilities.invokeLater(
                                 new Runnable(){
                                     public void run(){
                                         statusLabel.setText("copied to file");
@@ -60,7 +68,7 @@ public class CustomGUI extends JFrame {
                         InputThread thread = new InputThread();
                         thread.start();
 //                        System.out.println(SwingUtilities.isEventDispatchThread());
-                        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+                        SwingUtilities.invokeLater(
                                 new Runnable(){
                                     public void run(){
                                         statusLabel.setText("copied from file");
@@ -75,7 +83,7 @@ public class CustomGUI extends JFrame {
                     public void actionPerformed(ActionEvent evt)
                     {
                         System.exit(0);
-                        SwingUtilities.invokeLater(                                                     //swing nereikalingi
+                        SwingUtilities.invokeLater(
                                 new Runnable(){
                                     public void run(){
                                         statusLabel.setText("exiting");
@@ -88,6 +96,7 @@ public class CustomGUI extends JFrame {
         statusPanel.add(statusLabel);
     }
 
+    /** method for adding additional buttons*/
     public void addButton (Container c, String title,
                            ActionListener listener)
     {
@@ -97,9 +106,9 @@ public class CustomGUI extends JFrame {
     }
 
 
-
-
+    /** const value for window width*/
     public static final int WIDTH = 400;
+    /** const value for window height*/
     public static final int HEIGHT = 150;
 }
 //class IOthread
@@ -112,8 +121,12 @@ public class CustomGUI extends JFrame {
 //    }
 //}
 
+/**
+ * thread for output to file
+ */
 class OutputThread extends Thread
 {
+    /** temp object for writing*/
     Product product;
     public  OutputThread(Product obj){product = obj;}
 
@@ -158,8 +171,12 @@ class OutputThread extends Thread
     }
 }
 
+/**
+ * thread for input to file
+ */
 class InputThread extends Thread
 {
+    /** temp object for reading*/
     Product product;
 
     public void run(){

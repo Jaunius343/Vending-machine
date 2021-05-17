@@ -1,13 +1,16 @@
 package com.company;
 import java.io.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
+
 import myPackage.myClass.*;
 import myExceptions.*;
 import myUserInterface.*;
 import javax.swing.*;
 
+/**
+ * main for testing the features
+ */
 public class Main{
     public static void main(String[] args) throws CloneNotSupportedException{
         //(new Product()).println();
@@ -145,6 +148,19 @@ public class Main{
                         frame.show();
                     }
                 });
+
+        List<Product> productList = new ArrayList<Product>();
+        Set<Product> productSet = new HashSet<Product>();
+        for (int i = 0; i < 10; ++i){
+            productList.add(p6);
+            productSet.add(p6);
+        }
+        System.out.println(productList);
+//        System.out.println(productList.contains(p6));
+        System.out.println("productList size: " + productList.size());
+        System.out.println("productSet size: " + productSet.size());
+
+
 
 //        System.out.println("Test");
 //        System.out.println(((CustomGUI) frame).product2);
