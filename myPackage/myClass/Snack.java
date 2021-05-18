@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 import java.util.Date;
 
 /**
- * Fully functional base class of {@link myPackage.myClass.Product}
+ * Fully functional class derived from abstract base {@link myPackage.myClass.Product}
  */
 public class Snack extends Product
 implements  Cloneable {
@@ -64,7 +64,8 @@ implements  Cloneable {
 
     /** prints object to screen*/
     public String toString(){
-        return (super.toString() + "\n" + "Product type: " + type + "\n" + "Calories per 100g: " + calories);
+//        return (super.toString() + "\n" + "Product type: " + type + "\n" + "Calories per 100g: " + calories);
+        return super.toString();
     }
 
     /**

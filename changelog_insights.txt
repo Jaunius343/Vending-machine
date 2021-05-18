@@ -37,3 +37,7 @@ GUI elements, I thought that creating them was the same. Actually, creating whol
 SwingUtilities.invokeLater in main, but turns out you don't need to construct buttons the same way.
 
 Added status label and put to use SwingUtilities.invokeLater method to update the label
+
+Changed my GUI so that it would work wiht a product list rather than one product object.
+Also changed writing / reading to file, as previously I used objectOutputStream for every single field of the object
+instead of implementing serializable interface and writing / reading the whole object. 

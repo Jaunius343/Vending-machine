@@ -138,7 +138,8 @@ public abstract class Product
 
     /** prints object to screen*/
     public String toString(){
-        return ("product name: " + name + "\n" + "product price: " + price + "€\n" + "expiration date: " + expiration);
+//        return ("product name: " + name + "\n" + "product price: " + price + "€\n" + "expiration date: " + expiration);
+        return (name + "  " + price + "€\n");
     }
 
     /**{@link myPackage.myClass.Drink} {@link myPackage.myClass.Snack}*/

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.ArrayList;
 
 /**
- * Fully functional base class of {@link myPackage.myClass.Product}
+ * Fully functional class derived from abstract base {@link myPackage.myClass.Product}
  */
 public class Drink extends Product
 implements Cloneable{
@@ -61,7 +61,8 @@ implements Cloneable{
 
     /** prints object to screen*/
     public String toString(){
-        return (super.toString() + "\n" + "Product type: " + type + "\n" + "fizziness: " + fizziness + "%");
+//        return (super.toString() + "\n" + "Product type: " + type + "\n" + "fizziness: " + fizziness + "%");
+        return super.toString();
     }
 
     /**

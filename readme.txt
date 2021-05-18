@@ -16,3 +16,5 @@ Understanding exceptions: declaring, throwing and catching them.
 Preparing objects for cloning(shallow & deep), understanding object creation patterns (used factory design pattern)
 
 Understanding, creating and using threads
+
+Using Swing elements and the importance of SwingUtilities.invokeLater

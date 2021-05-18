@@ -10,6 +10,8 @@ import java.awt.geom.*;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.List;
+import java.util.concurrent.Flow;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
@@ -21,15 +23,14 @@ public class CustomGUI extends JFrame {
 
     /**
      * creates a window
-     * @param obj product with which we're going to work
+     * @param productList product with which we're going to work
      */
-    public CustomGUI(Product obj){
+    public CustomGUI(List<Product> productList){
         setSize(WIDTH, HEIGHT);
         setTitle("input / output");
 
         Container contentPane = getContentPane();
         JPanel buttonPanel = new JPanel();
-
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
         contentPane.add(statusPanel, BorderLayout.SOUTH);
@@ -38,6 +39,8 @@ public class CustomGUI extends JFrame {
         JLabel statusLabel = new JLabel("status");
         statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
+        final JList<Product> list = new JList(productList.toArray());
+        contentPane.add(list, BorderLayout.WEST);
 
         SwingUtilities.invokeLater(
                 new Runnable(){
@@ -49,13 +52,17 @@ public class CustomGUI extends JFrame {
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent evt){
-                        OutputThread thread = new OutputThread(obj);
-                        thread.start();
-//                        System.out.println(SwingUtilities.isEventDispatchThread());
                         SwingUtilities.invokeLater(
                                 new Runnable(){
                                     public void run(){
-                                        statusLabel.setText("copied to file");
+                                        int[] indices = list.getSelectedIndices();
+                                        if(indices.length == 0){
+                                            statusLabel.setText("no products selected");
+                                        } else {
+                                            OutputThread thread = new OutputThread(productList, indices);
+                                            thread.start();
+                                            statusLabel.setText("copied to file");
+                                        }
                                     }
                                 });
                     }
@@ -65,12 +72,11 @@ public class CustomGUI extends JFrame {
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent evt){
-                        InputThread thread = new InputThread();
-                        thread.start();
-//                        System.out.println(SwingUtilities.isEventDispatchThread());
                         SwingUtilities.invokeLater(
                                 new Runnable(){
                                     public void run(){
+                                        InputThread thread = new InputThread();
+                                        thread.start();
                                         statusLabel.setText("copied from file");
                                     }
                                 });
@@ -92,7 +98,7 @@ public class CustomGUI extends JFrame {
                     }
                 });
 
-        contentPane.add(buttonPanel, BorderLayout.CENTER);
+        contentPane.add(buttonPanel, BorderLayout.NORTH);
         statusPanel.add(statusLabel);
     }
 
@@ -107,9 +113,9 @@ public class CustomGUI extends JFrame {
 
 
     /** const value for window width*/
-    public static final int WIDTH = 400;
+    public static final int WIDTH = 300;
     /** const value for window height*/
-    public static final int HEIGHT = 150;
+    public static final int HEIGHT = 500;
 }
 //class IOthread
 //{
@@ -127,8 +133,9 @@ public class CustomGUI extends JFrame {
 class OutputThread extends Thread
 {
     /** temp object for writing*/
-    Product product;
-    public  OutputThread(Product obj){product = obj;}
+    List<Product> productList;
+    int[] selected;
+    public  OutputThread(List<Product> list, int[] indices){productList = list; selected = indices;}
 
     public void run()
     {
@@ -136,19 +143,13 @@ class OutputThread extends Thread
             ObjectOutputStream outputFile = null;
 
             try{
-                outputFile = new ObjectOutputStream(new FileOutputStream("file.txt"));
-                outputFile.writeObject(product.getType());
-                outputFile.writeObject(product.getPrice());
-//                sleep(1000);
-                outputFile.writeObject(product.getExpiration());
-//                sleep(1000);
-                outputFile.writeObject(product.getString());
-//                sleep(1000);
-                outputFile.writeObject(product.getDiscount());
-//                sleep(1000);
-                outputFile.writeObject(product.getSize());
-                outputFile.writeObject(product.getCal());
-                sleep(10);
+                outputFile = new ObjectOutputStream(new FileOutputStream("file.bin"));
+                outputFile.writeObject(selected.length);
+                for(int i = 0; i < selected.length; ++i){
+                    outputFile.writeObject(productList.get(i));
+                    sleep(10);
+                }
+
             }
             catch (FileNotFoundException ex){
                 ex.printStackTrace();
@@ -176,39 +177,26 @@ class OutputThread extends Thread
  */
 class InputThread extends Thread
 {
-    /** temp object for reading*/
-    Product product;
-
+    List<Product> productList = new ArrayList<Product>();
+    int size;
     public void run(){
         try{
 
             ObjectInputStream inputFile = null;
             try{
-                String temp;
-                inputFile = new ObjectInputStream(new FileInputStream("file.txt"));
-                temp = (String) inputFile.readObject();
-//                System.out.println("this is a test: " + temp);
+//                System.out.println("\n" + "Before file read:");
+//                System.out.println(productList);
 
-                ProductFactory productFactory = new ProductFactory();
-                product = productFactory.createProduct(temp);
-
-                System.out.println("\n" + "Before file read:");
-                System.out.println(product);
-
-                product.setPrice((BigDecimal) inputFile.readObject());
-                product.setDate((Date) inputFile.readObject());
-                product.setString((String) inputFile.readObject());
-                product.setDiscount((int) inputFile.readObject());
-                product.setSize((float) inputFile.readObject());
-                product.setCal((int) inputFile.readObject());
+                inputFile = new ObjectInputStream(new FileInputStream("file.bin"));
+                size = (int) inputFile.readObject();
+                for (int i = 0; i < size; ++i){
+                    productList.add((Product) inputFile.readObject());
+                }
 
                 System.out.println("\n" + "test object values:");
-                System.out.println(product);
+                System.out.println(productList);
             }
             catch (FileNotFoundException ex){
-                ex.printStackTrace();
-            }
-            catch(SellWithDiscountException ex) {
                 ex.printStackTrace();
             }
             catch(ClassNotFoundException ex){

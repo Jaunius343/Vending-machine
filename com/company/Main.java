@@ -140,25 +140,53 @@ public class Main{
 //        System.out.println(p6.getPrice().toString());
         
 
+
+        List<Product> productList = new ArrayList<Product>();
+        Set<Product> productSet = new HashSet<Product>();
+        productList.add(p6);
+        productList.add(p10);
+        productList.add(p8);
+        productList.add(p9);
+        System.out.println(productList.get(0));
+//        for (int i = 0; i < 10; ++i){
+//            productList.add(p6);
+//            productSet.add(p6);
+//        }
+//        System.out.println(productList);
+//        System.out.println(productList.contains(p6));
+//        System.out.println("productList size: " + productList.size());
+//        System.out.println("productSet size: " + productSet.size());
+
         SwingUtilities.invokeLater(
                 new Runnable(){
                     public void run(){
-                        JFrame frame = new CustomGUI(p6);
+                        JFrame frame = new CustomGUI(productList);
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         frame.show();
                     }
                 });
 
-        List<Product> productList = new ArrayList<Product>();
-        Set<Product> productSet = new HashSet<Product>();
-        for (int i = 0; i < 10; ++i){
-            productList.add(p6);
-            productSet.add(p6);
-        }
-        System.out.println(productList);
-//        System.out.println(productList.contains(p6));
-        System.out.println("productList size: " + productList.size());
-        System.out.println("productSet size: " + productSet.size());
+
+//            ObjectOutputStream outputFile = null;
+//
+//            try{
+//                outputFile = new ObjectOutputStream(new FileOutputStream("file3.txt"));
+//                outputFile.writeObject(p6);
+//            }
+//            catch (FileNotFoundException ex){
+//                ex.printStackTrace();
+//            }
+//            catch (IOException ex){
+//                ex.printStackTrace();
+//            }
+//            finally {
+//                try {
+//                    outputFile.close();
+//                }
+//                catch(IOException ex){
+//                    ex.printStackTrace();
+//                }
+//            }
 
 
 
